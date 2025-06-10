@@ -6,8 +6,10 @@ def relu(x):
     return np.maximum(0, x)
 
 def softmax(x):
-    x_shifted = x - np.max(x, axis=-1, keepdims=True)
-    exp_x = np.exp(x_shifted)
+    x = x.astype(np.float64, copy=False)
+    x_max = np.max(x, axis=-1, keepdims=True)
+    exp_x = np.exp(x - x_max)
+
     return exp_x / np.sum(exp_x, axis=-1, keepdims=True)
 
 # === Flatten ===
